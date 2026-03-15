@@ -7,12 +7,15 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css">
     @vite('resources/css/app.css')
-
 </head>
 
 <body>
+    @include('sweetalert::alert')
     @include('admin.includes.sidebar')
-    @yield('content')
+    <div class="ml-[300px]">
+        @include('admin.includes.topbar')
+        @yield('content')
+    </div>
 </body>
 
 </html>
