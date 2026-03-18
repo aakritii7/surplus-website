@@ -13,13 +13,21 @@
                 </label>
                 <input type="text" value="{{$course->title}}" name="title" id="title" placeholder="Category Title"
                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    @error('title')
+                    <p class="text-red-500">*{{$message}}</p>
+                        
+                    @enderror
             </div>
 
             <div class="mb-5">
                 <label for="image" class="mb-3 block text-base font-medium text-[#07074D]">
                     Image
                 </label>
-                <input type="file">
+                <input type="file" name="image" id="image">
+                @error('image')
+                <p class="text-red-500">*{{$message}}</p>
+                    
+                @enderror
             </div>
 
             <div>
