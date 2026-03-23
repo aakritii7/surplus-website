@@ -47,7 +47,8 @@
 
             </tbody>
         </table>
-        {{$courses->links()}}
+    {{$courses->links()}}
+        
     </div>
 
 </div>
@@ -79,6 +80,7 @@
     const deleteModal=document.getElementById('deleteModal');
     const deleteFormId=document.getElementById('deleteFormId');
     function showDeleteModal($id){
+        event.preventDefault();
         deleteFormId.value=$id;
         deleteModal.classList.remove('hidden');
 
@@ -88,10 +90,9 @@
     }
     function submitForm(){
         var id = deleteFormId.value;
-        var deleteForm = document.getElementById('deleteForm_{{$item->id}}');
+        var deleteForm = document.getElementById(`deleteForm_${id}`);
         deleteForm.submit();
         closeDeleteModal();
-
     }
 
 </script>

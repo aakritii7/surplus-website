@@ -22,7 +22,7 @@
     <!-- <div>
         <hr class="text-gray-300">
     </div> -->
-    <div class="  py-5 px-15">
+    <div class=" my-5 mx-10  py-5 px-15">
         <div>
             <h1 class="text-3xl font-bold pb-2">Dashboard Overview</h1>
             <p class="text-lg text-gray-500">Welcome back! Here's what's happening with Surplus today.</p>

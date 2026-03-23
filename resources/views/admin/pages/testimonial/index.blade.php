@@ -1,13 +1,11 @@
 @extends('admin.layout.adminLayout')
 @section('content')
-
-
 <div class="bg-yellow-50">
     <div class="ml-10 mr-10">
         <div class="flex justify-between mb-10 pt-10">
-            <h1 class="text-2xl font-bold">Service Management</h1>
-            <a class="text-xl bg-black p-3 rounded-xl text-white " href="{{route('admin.service.create')}}">
-                + Add Service
+            <h1 class="text-2xl font-bold">Testimonial Management</h1>
+            <a class="text-xl bg-black p-3 rounded-xl text-white " href="{{route('admin.testimonial.create')}}">
+                + Add Testimonial
             </a>
         </div>
         <table class="w-full">
@@ -15,42 +13,50 @@
 
                 <tr class="flex justify-around w-full">
                     <th>SN</th>
-                    <th>Title</th>
-                    <th>Description</th>
+                    <th>Client</th>
+                    <th>Rating</th>
                     <th>Image</th>
-                    <th>Actions</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody class="border w-full">
                 @php
                     $index=1;
                 @endphp
-                @foreach ($services as $item)
+                @foreach ($testimonials as $item)
                 <tr class="flex justify-around w-full">
-                    <td>{{($services->currentPage()-1) * $services->perPage() + $loop->iteration}}</td>
-                    <td>{{$item->title}}</td>
-                    <td>{{$item->description}}</td>
+                    <td>{{($testimonials->currentPage()-1)*$testimonials->perPage()+$loop->iteration}}</td>
+                    <td>{{$item->client}}</td>
+                    <td>{{$item->rating}}</td>
                     <td>
                         <img class="w-[40px] h-[40px] rounded-full" src="{{$item->image??'/images/default.png'}}" alt="">
                     </td>
                     <td class="flex gap-2 pt-2 pb-2">
-                        <a href="{{route('admin.service.edit',$item->id)}}" class="border border-green-500 bg-green-300 text-green-800 px-2"><i class="ri-edit-line"></i></a>
-                        <form id="deleteForm_{{$item->id}}" action="{{route('admin.service.delete',$item->id)}}" method="post">
+                        <a href="{{route('admin.testimonial.edit',$item->id)}}" class="border border-green-500 bg-green-300 text-green-800 px-2"><i class="ri-edit-line"></i></a>
+                        <form id="deleteForm_{{$item->id}}" action="{{route('admin.testimonial.delete',$item->id)}}" method="post">
                             @csrf
                             @method('delete')
+                            
                             <button onclick="showDeleteModal({{$item->id}})" class="border border-red-500 bg-red-300 text-red-800 px-2"><i class="ri-delete-bin-5-line"></i></button>
                         </form>
                     </td>
                 </tr>
+                @php
+                    $index++
+                @endphp
                     
                 @endforeach
                 
+                
             </tbody>
         </table>
-        {{$services->links()}}
+        {{$testimonials->links()}}
+
     </div>
 
 </div>
+
+
 
 <div id="deleteModal" tabindex="-1" aria-hidden="false" class="hidden overflow-y-auto overflow-x-hidden  fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
     <div class="relative p-4 w-full max-w-md h-1/2  m-auto">
@@ -76,26 +82,25 @@
 </div>
 
 <script>
-    
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteFormId = document.getElementById('deleteFormId');
 
     function showDeleteModal($id){
         event.preventDefault();
-        var deleteModal=document.getElementById('deleteModal');
-        var deleteFormId=document.getElementById('deleteFormId');
         deleteFormId.value=$id;
-        deleteModal.classList.remove('hidden')
+        deleteModal.classList.remove('hidden');
     }
     function closeDeleteModal(){
-        var deleteModal=document.getElementById('deleteModal');
-        deleteModal.classList.add('remove');
+        deleteModal.classList.add('hidden');
     }
     function submitForm(){
-        var deleteFormId=document.getElementById('deleteFormId');
-        var id = deleteFormId.value;
-        var deleteForm= document.getElementById(`deleteForm_${id}`);
+        var id= deleteFormId.value;
+        var deleteForm = document.getElementById(`deleteForm_${id}`);
         deleteForm.submit();
         closeDeleteModal();
+
+
     }
 </script>
-
+    
 @endsection
